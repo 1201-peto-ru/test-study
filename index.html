@@ -1,1 +1,1924 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>中学生 定期テスト対策</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --main: #4f46e5;
+      --main-dark: #3730a3;
+      --sub: #eef2ff;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #222222;
+      --subtext: #666666;
+      --border: #dddddd;
+      --correct: #16a34a;
+      --wrong: #dc2626;
+      --warning: #f59e0b;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans JP",
+        "Yu Gothic",
+        "Hiragino Kaku Gothic ProN",
+        Meiryo,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      padding: 28px 16px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      opacity: 0.9;
+    }
+
+    .container {
+      width: min(1000px, calc(100% - 24px));
+      margin: 24px auto 50px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--main);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .option-button {
+      border: 2px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      padding: 14px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.15s;
+    }
+
+    .option-button:hover {
+      border-color: var(--main);
+      background: var(--sub);
+    }
+
+    .option-button.selected {
+      background: var(--main);
+      color: white;
+      border-color: var(--main);
+    }
+
+    .unit-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .unit-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: 0.15s;
+    }
+
+    .unit-item:hover {
+      background: #fafaff;
+      border-color: #aaa;
+    }
+
+    .unit-item.selected {
+      background: var(--sub);
+      border-color: var(--main);
+    }
+
+    .unit-item input {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--main);
+    }
+
+    .unit-name {
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .unit-info {
+      font-size: 12px;
+      color: var(--subtext);
+      margin-top: 3px;
+    }
+
+    .select-all-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .small-button {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .small-button:hover {
+      border-color: var(--main);
+      color: var(--main);
+    }
+
+    .start-area {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .main-button {
+      border: none;
+      background: var(--main);
+      color: white;
+      border-radius: 12px;
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .main-button:hover {
+      background: var(--main-dark);
+      transform: translateY(-1px);
+    }
+
+    .main-button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--main);
+      transition: width 0.2s;
+    }
+
+    .question-meta {
+      color: var(--subtext);
+      font-size: 14px;
+    }
+
+    .question-box {
+      background: #fafaff;
+      border: 1px solid #e4e4ff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .question-unit {
+      display: inline-block;
+      background: var(--sub);
+      color: var(--main-dark);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 21px;
+      line-height: 1.7;
+      font-weight: bold;
+      white-space: pre-wrap;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice-button {
+      text-align: left;
+      padding: 15px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .choice-button:hover:not(:disabled) {
+      border-color: var(--main);
+      background: var(--sub);
+    }
+
+    .choice-button:disabled {
+      cursor: default;
+    }
+
+    .choice-button.correct {
+      border-color: var(--correct);
+      background: #ecfdf5;
+    }
+
+    .choice-button.wrong {
+      border-color: var(--wrong);
+      background: #fef2f2;
+    }
+
+    .answer-result {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 12px;
+    }
+
+    .answer-result.show {
+      display: block;
+    }
+
+    .answer-result.correct {
+      background: #ecfdf5;
+      border: 1px solid #86efac;
+    }
+
+    .answer-result.wrong {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+    }
+
+    .answer-result h3 {
+      margin-top: 0;
+    }
+
+    .explanation {
+      line-height: 1.7;
+    }
+
+    .next-area {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .result-score {
+      text-align: center;
+      padding: 25px;
+    }
+
+    .score-number {
+      font-size: 64px;
+      font-weight: bold;
+      color: var(--main);
+    }
+
+    .score-label {
+      color: var(--subtext);
+    }
+
+    .result-message {
+      font-size: 18px;
+      margin: 15px 0 25px;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--subtext);
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .review-question {
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .review-answer {
+      margin-top: 8px;
+      color: var(--wrong);
+    }
+
+    .review-correct {
+      color: var(--correct);
+      margin-top: 4px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .notice {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      color: #888;
+      font-size: 12px;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      .question-text {
+        font-size: 18px;
+      }
+
+      .result-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .main-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>📚 中学生 定期テスト対策</h1>
+    <p>自分で単元を選んで、ランダム問題に挑戦しよう！</p>
+  </header>
+
+  <main class="container">
+
+    <!-- =========================
+         設定画面
+    ========================== -->
+    <section id="setupScreen" class="screen active">
+
+      <div class="card">
+        <div class="step-title">
+          <div class="step-number">1</div>
+          <h2>学年を選択</h2>
+        </div>
+
+        <div id="gradeOptions" class="option-grid">
+          <button class="option-button" data-grade="1">中学1年</button>
+          <button class="option-button" data-grade="2">中学2年</button>
+          <button class="option-button" data-grade="3">中学3年</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="step-title">
+          <div class="step-number">2</div>
+          <h2>教科を選択</h2>
+        </div>
+
+        <div id="subjectOptions" class="option-grid">
+          <button class="option-button" data-subject="国語">国語</button>
+          <button class="option-button" data-subject="社会">社会</button>
+          <button class="option-button" data-subject="数学">数学</button>
+          <button class="option-button" data-subject="理科">理科</button>
+          <button class="option-button" data-subject="英語">英語</button>
+          <button class="option-button" data-subject="音楽">音楽</button>
+          <button class="option-button" data-subject="美術">美術</button>
+          <button class="option-button" data-subject="保健体育">保健体育</button>
+          <button class="option-button" data-subject="技術・家庭">技術・家庭</button>
+        </div>
+
+        <div class="notice">
+          現在は主要5教科を中心に問題データを追加していきます。
+          その他の教科も同じ仕組みで追加できます。
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="step-title">
+          <div class="step-number">3</div>
+          <h2>単元を選択</h2>
+        </div>
+
+        <div class="select-all-row">
+          <div>
+            <strong id="unitCountText">0個の単元を選択中</strong>
+          </div>
+
+          <div>
+            <button id="selectAllUnits" class="small-button">
+              すべて選択
+            </button>
+
+            <button id="clearUnits" class="small-button">
+              すべて解除
+            </button>
+          </div>
+        </div>
+
+        <div id="unitList" class="unit-list">
+          <p>先に学年と教科を選択してください。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="step-title">
+          <div class="step-number">4</div>
+          <h2>問題数</h2>
+        </div>
+
+        <div id="questionCountOptions" class="option-grid">
+          <button class="option-button selected" data-count="5">5問</button>
+          <button class="option-button" data-count="10">10問</button>
+          <button class="option-button" data-count="20">20問</button>
+          <button class="option-button" data-count="30">30問</button>
+          <button class="option-button" data-count="50">50問</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="step-title">
+          <div class="step-number">5</div>
+          <h2>難易度</h2>
+        </div>
+
+        <div id="difficultyOptions" class="option-grid">
+          <button class="option-button selected" data-difficulty="すべて">
+            すべて
+          </button>
+          <button class="option-button" data-difficulty="基礎">
+            基礎
+          </button>
+          <button class="option-button" data-difficulty="標準">
+            標準
+          </button>
+          <button class="option-button" data-difficulty="応用">
+            応用
+          </button>
+        </div>
+      </div>
+
+      <div class="start-area">
+        <button id="startButton" class="main-button">
+          問題を開始する
+        </button>
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         クイズ画面
+    ========================== -->
+    <section id="quizScreen" class="screen">
+
+      <div class="card">
+
+        <div class="quiz-top">
+          <div id="progressText" class="question-meta">
+            第1問 / 5問
+          </div>
+
+          <div id="scoreText" class="question-meta">
+            正解 0問
+          </div>
+        </div>
+
+        <div class="progress">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="question-box">
+
+          <div id="questionUnit" class="question-unit">
+            単元
+          </div>
+
+          <div id="questionText" class="question-text">
+            問題
+          </div>
+
+        </div>
+
+        <div id="choices" class="choices"></div>
+
+        <div id="answerResult" class="answer-result">
+
+          <h3 id="resultTitle"></h3>
+
+          <div id="resultExplanation" class="explanation"></div>
+
+        </div>
+
+        <div class="next-area">
+          <button id="nextButton" class="main-button hidden">
+            次の問題
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         結果画面
+    ========================== -->
+    <section id="resultScreen" class="screen">
+
+      <div class="card result-score">
+
+        <h2>🎉 テスト終了！</h2>
+
+        <div id="finalScore" class="score-number">
+          0%
+        </div>
+
+        <div class="score-label">
+          正答率
+        </div>
+
+        <div class="result-stats">
+
+          <div class="stat-box">
+            <div id="totalNumber" class="stat-number">0</div>
+            <div class="stat-label">問題数</div>
+          </div>
+
+          <div class="stat-box">
+            <div id="correctNumber" class="stat-number">0</div>
+            <div class="stat-label">正解</div>
+          </div>
+
+          <div class="stat-box">
+            <div id="wrongNumber" class="stat-number">0</div>
+            <div class="stat-label">不正解</div>
+          </div>
+
+        </div>
+
+        <div id="resultMessage" class="result-message"></div>
+
+        <button id="retryButton" class="main-button">
+          もう一度挑戦
+        </button>
+
+        <button
+          id="homeButton"
+          class="small-button"
+          style="margin-top:10px;"
+        >
+          設定画面に戻る
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>❌ 間違えた問題</h2>
+
+        <div id="wrongQuestions"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div class="footer">
+    中学生 定期テスト対策サイト
+  </div>
+
+
+  <script>
+
+    /* ==================================================
+       問題データ
+
+       後で、この部分を questions.js に分離します。
+       今は動作確認用として少数の問題を入れています。
+    ================================================== */
+
+    const questionData = [
+
+      /* =========================
+         中1 数学
+      ========================== */
+
+      {
+        grade: 1,
+        subject: "数学",
+        unit: "正の数・負の数",
+        difficulty: "基礎",
+        question: "−3 + 5 の計算結果はどれですか？",
+        choices: [
+          "2",
+          "−2",
+          "8",
+          "−8"
+        ],
+        answer: 0,
+        explanation: "−3から5増えるので、答えは2です。"
+      },
+
+      {
+        grade: 1,
+        subject: "数学",
+        unit: "正の数・負の数",
+        difficulty: "基礎",
+        question: "−7 − 3 の計算結果はどれですか？",
+        choices: [
+          "−4",
+          "4",
+          "−10",
+          "10"
+        ],
+        answer: 2,
+        explanation: "−7からさらに3小さくなるので、−10です。"
+      },
+
+      {
+        grade: 1,
+        subject: "数学",
+        unit: "文字式",
+        difficulty: "基礎",
+        question: "x = 3 のとき、2x + 5 の値はどれですか？",
+        choices: [
+          "8",
+          "10",
+          "11",
+          "12"
+        ],
+        answer: 2,
+        explanation: "x=3を代入すると、2×3+5=11です。"
+      },
+
+      /* =========================
+         中2 数学
+      ========================== */
+
+      {
+        grade: 2,
+        subject: "数学",
+        unit: "式の計算",
+        difficulty: "基礎",
+        question: "3x + 2x を簡単にするとどれですか？",
+        choices: [
+          "5x",
+          "6x",
+          "5x²",
+          "x"
+        ],
+        answer: 0,
+        explanation: "同類項なので係数を足して、5xになります。"
+      },
+
+      {
+        grade: 2,
+        subject: "数学",
+        unit: "連立方程式",
+        difficulty: "標準",
+        question: "x + y = 7、x − y = 1 のとき、xはいくつですか？",
+        choices: [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        answer: 2,
+        explanation: "2つの式を足すと2x=8なので、x=4です。"
+      },
+
+      /* =========================
+         中3 数学
+      ========================== */
+
+      {
+        grade: 3,
+        subject: "数学",
+        unit: "多項式の計算",
+        difficulty: "基礎",
+        question: "3x + 5x を簡単にするとどれですか？",
+        choices: [
+          "8x",
+          "15x",
+          "8x²",
+          "2x"
+        ],
+        answer: 0,
+        explanation: "同類項なので、3x+5x=8xです。"
+      },
+
+      {
+        grade: 3,
+        subject: "数学",
+        unit: "因数分解",
+        difficulty: "基礎",
+        question: "x² + 5x + 6 を因数分解したものはどれですか？",
+        choices: [
+          "(x+2)(x+3)",
+          "(x+1)(x+6)",
+          "(x−2)(x−3)",
+          "(x+5)(x+1)"
+        ],
+        answer: 0,
+        explanation: "積が6、和が5になる2と3を使います。"
+      },
+
+      {
+        grade: 3,
+        subject: "数学",
+        unit: "平方根",
+        difficulty: "基礎",
+        question: "√49 の値はどれですか？",
+        choices: [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        answer: 1,
+        explanation: "7×7=49なので、√49=7です。"
+      },
+
+      {
+        grade: 3,
+        subject: "数学",
+        unit: "二次方程式",
+        difficulty: "標準",
+        question: "x² = 25 の解はどれですか？",
+        choices: [
+          "x=5だけ",
+          "x=−5だけ",
+          "x=±5",
+          "x=25"
+        ],
+        answer: 2,
+        explanation: "2乗して25になる数は5と−5なので、x=±5です。"
+      },
+
+      {
+        grade: 3,
+        subject: "数学",
+        unit: "関数 y=ax²",
+        difficulty: "基礎",
+        question: "y=2x²で、x=3のときのyの値はどれですか？",
+        choices: [
+          "6",
+          "9",
+          "12",
+          "18"
+        ],
+        answer: 3,
+        explanation: "y=2×3²=2×9=18です。"
+      },
+
+      /* =========================
+         中1 英語
+      ========================== */
+
+      {
+        grade: 1,
+        subject: "英語",
+        unit: "be動詞",
+        difficulty: "基礎",
+        question: "I ___ a student. に入る語はどれですか？",
+        choices: [
+          "am",
+          "is",
+          "are",
+          "be"
+        ],
+        answer: 0,
+        explanation: "主語がIのとき、be動詞はamを使います。"
+      },
+
+      {
+        grade: 1,
+        subject: "英語",
+        unit: "一般動詞",
+        difficulty: "基礎",
+        question: "「私は毎日英語を勉強します。」に最も適切な英文はどれですか？",
+        choices: [
+          "I study English every day.",
+          "I studies English every day.",
+          "I studying English every day.",
+          "I am study English every day."
+        ],
+        answer: 0,
+        explanation: "主語がIなので一般動詞studyをそのまま使います。"
+      },
+
+      /* =========================
+         中2 英語
+      ========================== */
+
+      {
+        grade: 2,
+        subject: "英語",
+        unit: "過去形",
+        difficulty: "基礎",
+        question: "I ___ soccer yesterday. に入る語はどれですか？",
+        choices: [
+          "play",
+          "plays",
+          "played",
+          "playing"
+        ],
+        answer: 2,
+        explanation: "yesterdayがあるので過去形playedを使います。"
+      },
+
+      /* =========================
+         中3 英語
+      ========================== */
+
+      {
+        grade: 3,
+        subject: "英語",
+        unit: "現在完了",
+        difficulty: "標準",
+        question: "I have ___ to Kyoto twice. に入る語はどれですか？",
+        choices: [
+          "go",
+          "went",
+          "gone",
+          "going"
+        ],
+        answer: 2,
+        explanation: "haveの後ろなので過去分詞goneを使います。"
+      },
+
+      /* =========================
+         中1 理科
+      ========================== */
+
+      {
+        grade: 1,
+        subject: "理科",
+        unit: "植物の生活と種類",
+        difficulty: "基礎",
+        question: "植物が光合成を行う場所として最も適切なものはどれですか？",
+        choices: [
+          "葉緑体",
+          "核",
+          "細胞壁",
+          "液胞"
+        ],
+        answer: 0,
+        explanation: "光合成は葉緑体で行われます。"
+      },
+
+      /* =========================
+         中2 理科
+      ========================== */
+
+      {
+        grade: 2,
+        subject: "理科",
+        unit: "化学変化",
+        difficulty: "基礎",
+        question: "物質が別の物質に変わる変化を何といいますか？",
+        choices: [
+          "状態変化",
+          "化学変化",
+          "温度変化",
+          "運動変化"
+        ],
+        answer: 1,
+        explanation: "別の物質ができる変化を化学変化といいます。"
+      },
+
+      /* =========================
+         中3 理科
+      ========================== */
+
+      {
+        grade: 3,
+        subject: "理科",
+        unit: "運動とエネルギー",
+        difficulty: "基礎",
+        question: "物体の運動の速さを表す量はどれですか？",
+        choices: [
+          "質量",
+          "速さ",
+          "密度",
+          "圧力"
+        ],
+        answer: 1,
+        explanation: "運動の速さは、単位時間あたりに進む距離などで表します。"
+      },
+
+      /* =========================
+         中1 社会
+      ========================== */
+
+      {
+        grade: 1,
+        subject: "社会",
+        unit: "世界の地域構成",
+        difficulty: "基礎",
+        question: "日本が位置している大陸はどれですか？",
+        choices: [
+          "アフリカ大陸",
+          "ユーラシア大陸",
+          "南アメリカ大陸",
+          "北アメリカ大陸"
+        ],
+        answer: 1,
+        explanation: "日本はユーラシア大陸の東側に位置しています。"
+      },
+
+      /* =========================
+         中2 社会
+      ========================== */
+
+      {
+        grade: 2,
+        subject: "社会",
+        unit: "日本の地域的特色",
+        difficulty: "基礎",
+        question: "日本の国土を構成する主要な4つの島に含まれないものはどれですか？",
+        choices: [
+          "北海道",
+          "本州",
+          "九州",
+          "台湾"
+        ],
+        answer: 3,
+        explanation: "主要4島は北海道、本州、四国、九州です。"
+      },
+
+      /* =========================
+         中3 社会
+      ========================== */
+
+      {
+        grade: 3,
+        subject: "社会",
+        unit: "日本国憲法",
+        difficulty: "基礎",
+        question: "日本国憲法の基本原理に含まれるものはどれですか？",
+        choices: [
+          "国民主権",
+          "身分制度",
+          "軍国主義",
+          "鎖国"
+        ],
+        answer: 0,
+        explanation: "日本国憲法は国民主権、基本的人権の尊重、平和主義を基本原理としています。"
+      },
+
+      /* =========================
+         国語
+      ========================== */
+
+      {
+        grade: 1,
+        subject: "国語",
+        unit: "文法",
+        difficulty: "基礎",
+        question: "「美しい花」の「美しい」は何という品詞ですか？",
+        choices: [
+          "名詞",
+          "動詞",
+          "形容詞",
+          "副詞"
+        ],
+        answer: 2,
+        explanation: "「美しい」は形容詞です。"
+      },
+
+      {
+        grade: 2,
+        subject: "国語",
+        unit: "文法",
+        difficulty: "基礎",
+        question: "「静かに歩く」の「静かに」の品詞はどれですか？",
+        choices: [
+          "名詞",
+          "形容動詞",
+          "動詞",
+          "助詞"
+        ],
+        answer: 1,
+        explanation: "「静かだ」という形容動詞の連用形「静かに」です。"
+      },
+
+      {
+        grade: 3,
+        subject: "国語",
+        unit: "文法",
+        difficulty: "基礎",
+        question: "「私は本を読む。」の「を」は何ですか？",
+        choices: [
+          "助詞",
+          "助動詞",
+          "接続詞",
+          "副詞"
+        ],
+        answer: 0,
+        explanation: "「を」は助詞です。"
+      }
+
+    ];
+
+
+    /* ==================================================
+       サイトの設定
+    ================================================== */
+
+    let selectedGrade = null;
+    let selectedSubject = null;
+    let selectedUnits = new Set();
+    let selectedCount = 5;
+    let selectedDifficulty = "すべて";
+
+    let quizQuestions = [];
+    let currentQuestionIndex = 0;
+    let correctCount = 0;
+    let wrongQuestions = [];
+    let answered = false;
+
+
+    /* ==================================================
+       画面切り替え
+    ================================================== */
+
+    function showScreen(screenId) {
+
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      document.getElementById(screenId).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* ==================================================
+       学年選択
+    ================================================== */
+
+    document.querySelectorAll("[data-grade]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        selectedGrade = Number(button.dataset.grade);
+
+        document.querySelectorAll("[data-grade]").forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        selectedUnits.clear();
+
+        updateUnitList();
+        updateUnitCount();
+
+      });
+
+    });
+
+
+    /* ==================================================
+       教科選択
+    ================================================== */
+
+    document.querySelectorAll("[data-subject]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        selectedSubject = button.dataset.subject;
+
+        document.querySelectorAll("[data-subject]").forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        selectedUnits.clear();
+
+        updateUnitList();
+        updateUnitCount();
+
+      });
+
+    });
+
+
+    /* ==================================================
+       単元一覧
+    ================================================== */
+
+    function getAvailableUnits() {
+
+      if (!selectedGrade || !selectedSubject) {
+        return [];
+      }
+
+      const units = questionData
+        .filter(question =>
+          question.grade === selectedGrade &&
+          question.subject === selectedSubject
+        )
+        .map(question => question.unit);
+
+      return [...new Set(units)];
+
+    }
+
+
+    function updateUnitList() {
+
+      const unitList = document.getElementById("unitList");
+
+      unitList.innerHTML = "";
+
+      if (!selectedGrade || !selectedSubject) {
+
+        unitList.innerHTML =
+          "<p>先に学年と教科を選択してください。</p>";
+
+        return;
+      }
+
+      const units = getAvailableUnits();
+
+      if (units.length === 0) {
+
+        unitList.innerHTML =
+          `<p>現在、${selectedGrade}年生の${selectedSubject}の問題データはありません。</p>`;
+
+        return;
+      }
+
+      units.forEach(unit => {
+
+        const label = document.createElement("label");
+
+        label.className = "unit-item";
+
+        if (selectedUnits.has(unit)) {
+          label.classList.add("selected");
+        }
+
+        label.innerHTML = `
+          <input
+            type="checkbox"
+            value="${escapeHTML(unit)}"
+            ${selectedUnits.has(unit) ? "checked" : ""}
+          >
+
+          <div>
+            <div class="unit-name">
+              ${escapeHTML(unit)}
+            </div>
+
+            <div class="unit-info">
+              この単元の問題を出題
+            </div>
+          </div>
+        `;
+
+        const checkbox = label.querySelector("input");
+
+        checkbox.addEventListener("change", () => {
+
+          if (checkbox.checked) {
+            selectedUnits.add(unit);
+            label.classList.add("selected");
+          } else {
+            selectedUnits.delete(unit);
+            label.classList.remove("selected");
+          }
+
+          updateUnitCount();
+
+        });
+
+        unitList.appendChild(label);
+
+      });
+
+    }
+
+
+    function updateUnitCount() {
+
+      document.getElementById("unitCountText").textContent =
+        `${selectedUnits.size}個の単元を選択中`;
+
+    }
+
+
+    /* ==================================================
+       すべて選択・解除
+    ================================================== */
+
+    document.getElementById("selectAllUnits").addEventListener("click", () => {
+
+      const units = getAvailableUnits();
+
+      units.forEach(unit => {
+        selectedUnits.add(unit);
+      });
+
+      updateUnitList();
+      updateUnitCount();
+
+    });
+
+
+    document.getElementById("clearUnits").addEventListener("click", () => {
+
+      selectedUnits.clear();
+
+      updateUnitList();
+      updateUnitCount();
+
+    });
+
+
+    /* ==================================================
+       問題数
+    ================================================== */
+
+    document.querySelectorAll("[data-count]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        selectedCount = Number(button.dataset.count);
+
+        document.querySelectorAll("[data-count]").forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+      });
+
+    });
+
+
+    /* ==================================================
+       難易度
+    ================================================== */
+
+    document.querySelectorAll("[data-difficulty]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        selectedDifficulty = button.dataset.difficulty;
+
+        document.querySelectorAll("[data-difficulty]").forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+      });
+
+    });
+
+
+    /* ==================================================
+       問題開始
+    ================================================== */
+
+    document.getElementById("startButton").addEventListener("click", startQuiz);
+
+
+    function startQuiz() {
+
+      if (!selectedGrade) {
+        alert("学年を選択してください。");
+        return;
+      }
+
+      if (!selectedSubject) {
+        alert("教科を選択してください。");
+        return;
+      }
+
+      if (selectedUnits.size === 0) {
+        alert("少なくとも1つの単元を選択してください。");
+        return;
+      }
+
+      let pool = questionData.filter(question => {
+
+        const gradeMatch =
+          question.grade === selectedGrade;
+
+        const subjectMatch =
+          question.subject === selectedSubject;
+
+        const unitMatch =
+          selectedUnits.has(question.unit);
+
+        const difficultyMatch =
+          selectedDifficulty === "すべて" ||
+          question.difficulty === selectedDifficulty;
+
+        return (
+          gradeMatch &&
+          subjectMatch &&
+          unitMatch &&
+          difficultyMatch
+        );
+
+      });
+
+
+      if (pool.length === 0) {
+
+        alert(
+          "選択した条件に合う問題がありません。\n" +
+          "単元または難易度を変更してください。"
+        );
+
+        return;
+      }
+
+
+      /*
+       * 問題数よりデータが少ない場合は、
+       * 現在ある問題を繰り返して使用します。
+       *
+       * 問題が大量になれば、この処理はほぼ必要なくなります。
+       */
+
+      quizQuestions = [];
+
+      const shuffledPool = shuffle([...pool]);
+
+      for (let i = 0; i < selectedCount; i++) {
+
+        quizQuestions.push(
+          shuffledPool[i % shuffledPool.length]
+        );
+
+      }
+
+
+      currentQuestionIndex = 0;
+      correctCount = 0;
+      wrongQuestions = [];
+      answered = false;
+
+      showScreen("quizScreen");
+
+      showQuestion();
+
+    }
+
+
+    /* ==================================================
+       問題表示
+    ================================================== */
+
+    function showQuestion() {
+
+      answered = false;
+
+      const question =
+        quizQuestions[currentQuestionIndex];
+
+      const total =
+        quizQuestions.length;
+
+      const current =
+        currentQuestionIndex + 1;
+
+
+      document.getElementById("progressText").textContent =
+        `第${current}問 / ${total}問`;
+
+      document.getElementById("scoreText").textContent =
+        `正解 ${correctCount}問`;
+
+      document.getElementById("progressBar").style.width =
+        `${(current / total) * 100}%`;
+
+
+      document.getElementById("questionUnit").textContent =
+        `${question.subject}・${question.unit}・${question.difficulty}`;
+
+
+      document.getElementById("questionText").textContent =
+        question.question;
+
+
+      const choicesContainer =
+        document.getElementById("choices");
+
+      choicesContainer.innerHTML = "";
+
+
+      /*
+       * 選択肢も毎回シャッフル
+       */
+
+      const choices = question.choices.map((text, index) => ({
+        text,
+        originalIndex: index
+      }));
+
+      const shuffledChoices =
+        shuffle(choices);
+
+
+      shuffledChoices.forEach(choice => {
+
+        const button =
+          document.createElement("button");
+
+        button.className = "choice-button";
+
+        button.textContent =
+          choice.text;
+
+        button.addEventListener("click", () => {
+
+          answerQuestion(
+            choice.originalIndex,
+            button
+          );
+
+        });
+
+        choicesContainer.appendChild(button);
+
+      });
+
+
+      const result =
+        document.getElementById("answerResult");
+
+      result.className = "answer-result";
+
+      document.getElementById("resultTitle").textContent = "";
+
+      document.getElementById("resultExplanation").textContent = "";
+
+      document.getElementById("nextButton").classList.add("hidden");
+
+    }
+
+
+    /* ==================================================
+       回答
+    ================================================== */
+
+    function answerQuestion(selectedAnswer, selectedButton) {
+
+      if (answered) {
+        return;
+      }
+
+      answered = true;
+
+      const question =
+        quizQuestions[currentQuestionIndex];
+
+      const isCorrect =
+        selectedAnswer === question.answer;
+
+
+      const buttons =
+        document.querySelectorAll(".choice-button");
+
+
+      buttons.forEach(button => {
+        button.disabled = true;
+      });
+
+
+      if (isCorrect) {
+
+        correctCount++;
+
+        selectedButton.classList.add("correct");
+
+      } else {
+
+        selectedButton.classList.add("wrong");
+
+        wrongQuestions.push({
+          question: question,
+          selectedAnswer: selectedAnswer
+        });
+
+
+        buttons.forEach(button => {
+
+          if (
+            button.textContent ===
+            question.choices[question.answer]
+          ) {
+            button.classList.add("correct");
+          }
+
+        });
+
+      }
+
+
+      const result =
+        document.getElementById("answerResult");
+
+
+      result.className =
+        "answer-result show " +
+        (isCorrect ? "correct" : "wrong");
+
+
+      document.getElementById("resultTitle").textContent =
+        isCorrect ? "⭕ 正解！" : "❌ 不正解";
+
+
+      let explanation =
+        question.explanation || "";
+
+
+      if (!isCorrect) {
+
+        explanation =
+          `正解：${question.choices[question.answer]}\n\n` +
+          explanation;
+
+      }
+
+
+      document.getElementById("resultExplanation").textContent =
+        explanation;
+
+
+      document.getElementById("scoreText").textContent =
+        `正解 ${correctCount}問`;
+
+
+      document
+        .getElementById("nextButton")
+        .classList.remove("hidden");
+
+    }
+
+
+    /* ==================================================
+       次の問題
+    ================================================== */
+
+    document.getElementById("nextButton").addEventListener("click", () => {
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex >= quizQuestions.length) {
+
+        showResult();
+
+      } else {
+
+        showQuestion();
+
+      }
+
+    });
+
+
+    /* ==================================================
+       結果表示
+    ================================================== */
+
+    function showResult() {
+
+      showScreen("resultScreen");
+
+      const total =
+        quizQuestions.length;
+
+      const percentage =
+        Math.round((correctCount / total) * 100);
+
+      document.getElementById("finalScore").textContent =
+        `${percentage}%`;
+
+      document.getElementById("totalNumber").textContent =
+        total;
+
+      document.getElementById("correctNumber").textContent =
+        correctCount;
+
+      document.getElementById("wrongNumber").textContent =
+        total - correctCount;
+
+
+      let message = "";
+
+      if (percentage === 100) {
+
+        message =
+          "🎉 全問正解！すごいです！";
+
+      } else if (percentage >= 80) {
+
+        message =
+          "✨ かなりできています！この調子で頑張ろう！";
+
+      } else if (percentage >= 60) {
+
+        message =
+          "👍 もう少し！間違えた問題を復習してみよう！";
+
+      } else if (percentage >= 40) {
+
+        message =
+          "📖 基礎問題からもう一度確認してみよう！";
+
+      } else {
+
+        message =
+          "💪 まずは間違えた問題を復習して、もう一度挑戦しよう！";
+
+      }
+
+
+      document.getElementById("resultMessage").textContent =
+        message;
+
+
+      showWrongQuestions();
+
+    }
+
+
+    /* ==================================================
+       間違えた問題
+    ================================================== */
+
+    function showWrongQuestions() {
+
+      const container =
+        document.getElementById("wrongQuestions");
+
+      container.innerHTML = "";
+
+
+      if (wrongQuestions.length === 0) {
+
+        container.innerHTML =
+          "<p>🎉 間違えた問題はありません！</p>";
+
+        return;
+      }
+
+
+      wrongQuestions.forEach((item, index) => {
+
+        const question =
+          item.question;
+
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "review-item";
+
+
+        div.innerHTML = `
+          <div class="question-unit">
+            ${escapeHTML(question.unit)}
+          </div>
+
+          <div class="review-question">
+            ${index + 1}. ${escapeHTML(question.question)}
+          </div>
+
+          <div class="review-answer">
+            あなたの答え：
+            ${escapeHTML(question.choices[item.selectedAnswer])}
+          </div>
+
+          <div class="review-correct">
+            正解：
+            ${escapeHTML(question.choices[question.answer])}
+          </div>
+
+          <p>
+            ${escapeHTML(question.explanation || "")}
+          </p>
+        `;
+
+
+        container.appendChild(div);
+
+      });
+
+    }
+
+
+    /* ==================================================
+       もう一度挑戦
+    ================================================== */
+
+    document.getElementById("retryButton").addEventListener("click", () => {
+
+      startQuiz();
+
+    });
+
+
+    /* ==================================================
+       設定画面に戻る
+    ================================================== */
+
+    document.getElementById("homeButton").addEventListener("click", () => {
+
+      showScreen("setupScreen");
+
+    });
+
+
+    /* ==================================================
+       シャッフル
+    ================================================== */
+
+    function shuffle(array) {
+
+      const result =
+        [...array];
+
+
+      for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+      ) {
+
+        const j =
+          Math.floor(Math.random() * (i + 1));
+
+
+        [
+          result[i],
+          result[j]
+        ] =
+        [
+          result[j],
+          result[i]
+        ];
+
+      }
+
+
+      return result;
+
+    }
+
+
+    /* ==================================================
+       HTMLエスケープ
+    ================================================== */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+  </script>
+
+</body>
+</html>
