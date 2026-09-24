@@ -11,19 +11,6 @@
       box-sizing: border-box;
     }
 
-    :root {
-      --main: #4f46e5;
-      --main-dark: #3730a3;
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --sub: #6b7280;
-      --border: #e5e7eb;
-      --green: #16a34a;
-      --red: #dc2626;
-      --orange: #ea580c;
-    }
-
     body {
       margin: 0;
       font-family:
@@ -32,61 +19,51 @@
         "Segoe UI",
         "Noto Sans JP",
         sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: #f5f7fb;
+      color: #222;
     }
 
     button {
-      font: inherit;
+      font-family: inherit;
     }
 
-    .header {
+    header {
       background: linear-gradient(135deg, #4f46e5, #7c3aed);
       color: white;
-      padding: 28px 20px;
+      padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
-    .header h1 {
+    header h1 {
       margin: 0;
       font-size: 30px;
     }
 
-    .header p {
+    header p {
       margin: 8px 0 0;
       opacity: 0.9;
-      font-size: 14px;
     }
 
     .container {
-      width: min(1100px, calc(100% - 30px));
-      margin: 30px auto 60px;
+      width: min(1000px, calc(100% - 30px));
+      margin: 25px auto 50px;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: white;
       border-radius: 18px;
-      padding: 24px;
+      padding: 25px;
       margin-bottom: 20px;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
     }
 
     .section-title {
       font-size: 20px;
-      font-weight: 700;
-      margin: 0 0 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 
-    .section-subtitle {
-      color: var(--sub);
-      font-size: 13px;
-      margin-top: -8px;
-      margin-bottom: 18px;
-    }
-
-    .button-grid {
+    .selection-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
@@ -98,418 +75,254 @@
       gap: 10px;
     }
 
-    .option-button {
-      border: 2px solid var(--border);
+    .choice-button {
+      border: 2px solid #e5e7eb;
       background: white;
-      color: var(--text);
       border-radius: 12px;
-      padding: 14px 10px;
+      padding: 13px 10px;
+      font-size: 16px;
       cursor: pointer;
-      font-weight: 700;
-      transition: 0.15s;
+      transition: 0.2s;
     }
 
-    .option-button:hover {
-      border-color: var(--main);
+    .choice-button:hover {
+      border-color: #6366f1;
       transform: translateY(-1px);
     }
 
-    .option-button.selected {
-      border-color: var(--main);
-      background: #eef2ff;
-      color: var(--main-dark);
+    .choice-button.selected {
+      background: #6366f1;
+      border-color: #6366f1;
+      color: white;
+      font-weight: bold;
     }
 
-    .unit-container {
+    .unit-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      max-height: 420px;
-      overflow-y: auto;
-      padding-right: 4px;
     }
 
     .unit-button {
-      border: 1px solid var(--border);
+      text-align: left;
+      border: 2px solid #e5e7eb;
       background: white;
       border-radius: 10px;
       padding: 12px;
-      text-align: left;
       cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .unit-button:hover {
-      border-color: var(--main);
     }
 
     .unit-button.selected {
       background: #eef2ff;
-      border-color: var(--main);
-      color: var(--main-dark);
-      font-weight: 700;
+      border-color: #6366f1;
+      color: #4338ca;
+      font-weight: bold;
     }
 
-    .unit-button .unit-name {
-      display: block;
-      font-size: 14px;
-    }
-
-    .unit-button .unit-count {
-      display: block;
-      color: var(--sub);
-      font-size: 12px;
-      margin-top: 4px;
-    }
-
-    .settings-grid {
+    .controls {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
 
-    .select-box {
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    select {
       width: 100%;
       padding: 13px;
-      border: 2px solid var(--border);
+      border: 2px solid #e5e7eb;
       border-radius: 10px;
       background: white;
-      font-size: 15px;
-      cursor: pointer;
+      font-size: 16px;
     }
 
     .start-button {
       width: 100%;
-      border: 0;
+      border: none;
       background: linear-gradient(135deg, #4f46e5, #7c3aed);
       color: white;
-      padding: 17px;
-      border-radius: 13px;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: bold;
+      padding: 16px;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
+      margin-top: 20px;
     }
 
     .start-button:hover {
-      transform: translateY(-1px);
+      opacity: 0.9;
     }
 
-    .start-button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .info {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 15px;
-      color: var(--sub);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    /* Quiz */
-
-    #quizScreen,
-    #resultScreen {
-      display: none;
+    .hidden {
+      display: none !important;
     }
 
     .quiz-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 18px;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-weight: bold;
     }
 
-    .progress-text {
-      font-weight: 700;
-    }
-
-    .progress-bar {
-      width: 100%;
+    .progress {
       height: 10px;
       background: #e5e7eb;
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 10px;
+      margin-bottom: 25px;
     }
 
-    .progress-value {
+    .progress-bar {
       height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      transition: width 0.25s;
+      width: 0;
+      background: #6366f1;
+      transition: width 0.3s;
     }
 
-    .question-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #eef2ff;
-      color: var(--main-dark);
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .difficulty-basic {
-      background: #ecfdf5;
-      color: #047857;
-    }
-
-    .difficulty-standard {
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .difficulty-advanced {
-      background: #fff7ed;
-      color: #c2410c;
+    .question-number {
+      color: #6366f1;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .question-text {
-      font-size: 23px;
-      line-height: 1.65;
-      font-weight: 800;
-      margin: 20px 0 25px;
-      white-space: pre-wrap;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.6;
+      margin-bottom: 25px;
     }
 
-    .choices {
+    .answer-grid {
       display: grid;
       gap: 12px;
     }
 
-    .choice {
-      width: 100%;
+    .answer-button {
       text-align: left;
       background: white;
-      border: 2px solid var(--border);
-      border-radius: 13px;
-      padding: 16px;
-      cursor: pointer;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px;
       font-size: 16px;
-      line-height: 1.5;
-      transition: 0.15s;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    .choice:hover:not(:disabled) {
-      border-color: var(--main);
-      background: #fafaff;
+    .answer-button:hover:not(:disabled) {
+      border-color: #6366f1;
+      background: #f5f3ff;
     }
 
-    .choice.correct {
-      border-color: var(--green);
-      background: #f0fdf4;
-      color: #166534;
-    }
-
-    .choice.incorrect {
-      border-color: var(--red);
-      background: #fef2f2;
-      color: #991b1b;
-    }
-
-    .choice:disabled {
+    .answer-button:disabled {
       cursor: default;
     }
 
-    .answer-box {
-      display: none;
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 13px;
-      line-height: 1.7;
+    .answer-button.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #166534;
     }
 
-    .answer-box.correct {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-    }
-
-    .answer-box.incorrect {
-      background: #fef2f2;
-      border: 1px solid #fca5a5;
-    }
-
-    .answer-title {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 7px;
+    .answer-button.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #991b1b;
     }
 
     .explanation {
-      color: #374151;
-      white-space: pre-wrap;
+      margin-top: 20px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      line-height: 1.7;
+    }
+
+    .next-button,
+    .home-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 15px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
     }
 
     .next-button {
-      display: none;
-      width: 100%;
-      border: 0;
-      background: #111827;
+      background: #6366f1;
       color: white;
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 16px;
-      font-weight: 800;
-      cursor: pointer;
     }
 
-    /* Result */
+    .home-button {
+      background: #e5e7eb;
+      color: #222;
+    }
 
     .result-score {
       text-align: center;
-      padding: 20px 0;
+      font-size: 42px;
+      font-weight: bold;
+      color: #4f46e5;
+      margin: 20px 0;
     }
 
-    .score-number {
-      font-size: 60px;
-      font-weight: 900;
-      color: var(--main);
-    }
-
-    .score-label {
-      color: var(--sub);
-      margin-top: -5px;
-    }
-
-    .result-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 25px 0;
-    }
-
-    .stat {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 16px;
+    .result-message {
       text-align: center;
-    }
-
-    .stat-value {
-      font-size: 24px;
-      font-weight: 900;
-    }
-
-    .stat-label {
-      color: var(--sub);
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .result-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .secondary-button {
-      border: 2px solid var(--border);
-      background: white;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .secondary-button:hover {
-      border-color: var(--main);
-      color: var(--main);
-    }
-
-    .review-title {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 15px;
+      font-size: 18px;
+      margin-bottom: 25px;
     }
 
     .review-item {
-      border: 1px solid #fecaca;
-      background: #fffafa;
-      border-radius: 13px;
-      padding: 17px;
-      margin-bottom: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 12px;
+      line-height: 1.7;
     }
 
     .review-question {
-      font-weight: 800;
-      line-height: 1.6;
-      white-space: pre-wrap;
+      font-weight: bold;
     }
 
     .review-answer {
-      margin-top: 10px;
-      font-size: 14px;
-      line-height: 1.6;
+      color: #dc2626;
+      margin-top: 5px;
     }
 
-    .no-wrong {
+    .review-correct {
+      color: #16a34a;
+      margin-top: 5px;
+    }
+
+    .empty-message {
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      color: #64748b;
+    }
+
+    .info {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
       background: #f0fdf4;
-      border: 1px solid #86efac;
       color: #166534;
-      border-radius: 13px;
-      padding: 18px;
-      text-align: center;
-      font-weight: 700;
+      font-size: 14px;
     }
 
-    .empty {
-      color: var(--sub);
-      padding: 15px;
-      text-align: center;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--sub);
-      font-size: 12px;
-      padding: 25px 0;
-    }
-
-    @media (max-width: 800px) {
-      .subject-grid {
-        grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 25px;
       }
 
-      .settings-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header {
-        padding: 22px 15px;
-      }
-
-      .header h1 {
-        font-size: 24px;
-      }
-
-      .container {
-        width: min(100% - 18px, 1100px);
-        margin-top: 15px;
-      }
-
-      .card {
-        padding: 17px;
-        border-radius: 14px;
-      }
-
-      .button-grid {
+      .selection-grid,
+      .controls {
         grid-template-columns: 1fr;
       }
 
@@ -517,31 +330,16 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .unit-container {
+      .unit-list {
         grid-template-columns: 1fr;
-        max-height: 360px;
+      }
+
+      .card {
+        padding: 18px;
       }
 
       .question-text {
         font-size: 19px;
-      }
-
-      .choice {
-        font-size: 15px;
-        padding: 14px;
-      }
-
-      .result-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .result-buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .quiz-header {
-        align-items: flex-start;
-        flex-direction: column;
       }
     }
   </style>
@@ -549,649 +347,315 @@
 
 <body>
 
-  <header class="header">
-    <h1>📚 定期テスト対策</h1>
-    <p>中学生の定期テスト対策を4択問題で！</p>
-  </header>
+<header>
+  <h1>📚 定期テスト対策</h1>
+  <p>中学1年生〜中学3年生対応</p>
+</header>
 
-  <main class="container">
+<main class="container">
 
-    <!-- =========================
-         設定画面
-    ========================== -->
+  <!-- 設定画面 -->
+  <section id="setupScreen">
 
-    <section id="setupScreen">
+    <div class="card">
+      <div class="section-title">① 学年を選択</div>
 
-      <div class="card">
-        <h2 class="section-title">① 学年を選択</h2>
-
-        <div class="button-grid">
-          <button class="option-button" data-grade="1">
-            中学1年
-          </button>
-
-          <button class="option-button" data-grade="2">
-            中学2年
-          </button>
-
-          <button class="option-button" data-grade="3">
-            中学3年
-          </button>
-        </div>
+      <div class="selection-grid">
+        <button class="choice-button" data-grade="1">中学1年</button>
+        <button class="choice-button" data-grade="2">中学2年</button>
+        <button class="choice-button" data-grade="3">中学3年</button>
       </div>
-
-      <div class="card">
-        <h2 class="section-title">② 教科を選択</h2>
-
-        <div class="subject-grid">
-          <button class="option-button" data-subject="国語">
-            国語
-          </button>
-
-          <button class="option-button" data-subject="社会">
-            社会
-          </button>
-
-          <button class="option-button" data-subject="数学">
-            数学
-          </button>
-
-          <button class="option-button" data-subject="理科">
-            理科
-          </button>
-
-          <button class="option-button" data-subject="英語">
-            英語
-          </button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">③ 単元を選択</h2>
-
-        <p class="section-subtitle">
-          複数の単元を選択できます。「すべて選択」も可能です。
-        </p>
-
-        <div style="display:flex; gap:10px; margin-bottom:12px;">
-          <button
-            id="selectAllUnits"
-            class="secondary-button"
-            type="button"
-          >
-            すべて選択
-          </button>
-
-          <button
-            id="clearUnits"
-            class="secondary-button"
-            type="button"
-          >
-            選択解除
-          </button>
-        </div>
-
-        <div id="unitContainer" class="unit-container">
-          <div class="empty">
-            先に学年と教科を選択してください。
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">④ 問題設定</h2>
-
-        <div class="settings-grid">
-
-          <div>
-            <label for="questionCount">
-              <strong>問題数</strong>
-            </label>
-
-            <select id="questionCount" class="select-box">
-              <option value="5">5問</option>
-              <option value="10">10問</option>
-              <option value="20">20問</option>
-              <option value="30">30問</option>
-              <option value="50">50問</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="difficulty">
-              <strong>難易度</strong>
-            </label>
-
-            <select id="difficulty" class="select-box">
-              <option value="すべて">すべて</option>
-              <option value="基礎">基礎</option>
-              <option value="標準">標準</option>
-              <option value="応用">応用</option>
-            </select>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="card">
-
-        <div class="info">
-          <strong>💡 このサイトについて</strong><br>
-          ・問題は4択形式です。<br>
-          ・回答するとすぐに正解・不正解と解説が表示されます。<br>
-          ・最後に得点、正答率、間違えた問題を確認できます。<br>
-          ・問題はランダムに出題されます。<br>
-          ・同じ条件で何度でも挑戦できます。
-        </div>
-
-        <br>
-
-        <button id="startButton" class="start-button">
-          テストを開始する
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         クイズ画面
-    ========================== -->
-
-    <section id="quizScreen">
-
-      <div class="card">
-
-        <div class="quiz-header">
-
-          <div>
-            <div id="progressText" class="progress-text">
-              1 / 10
-            </div>
-
-            <div class="progress-bar">
-              <div id="progressValue" class="progress-value"></div>
-            </div>
-          </div>
-
-          <button
-            id="quitButton"
-            class="secondary-button"
-            type="button"
-          >
-            終了
-          </button>
-
-        </div>
-
-        <div id="questionMeta" class="question-meta"></div>
-
-        <div id="questionText" class="question-text"></div>
-
-        <div id="choices" class="choices"></div>
-
-        <div id="answerBox" class="answer-box">
-
-          <div id="answerTitle" class="answer-title"></div>
-
-          <div id="explanation" class="explanation"></div>
-
-        </div>
-
-        <button
-          id="nextButton"
-          class="next-button"
-          type="button"
-        >
-          次の問題へ
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         結果画面
-    ========================== -->
-
-    <section id="resultScreen">
-
-      <div class="card">
-
-        <div class="result-score">
-
-          <div id="scoreNumber" class="score-number">
-            0点
-          </div>
-
-          <div class="score-label">
-            テスト結果
-          </div>
-
-        </div>
-
-        <div class="result-stats">
-
-          <div class="stat">
-            <div id="correctCount" class="stat-value">
-              0
-            </div>
-
-            <div class="stat-label">
-              正解
-            </div>
-          </div>
-
-          <div class="stat">
-            <div id="wrongCount" class="stat-value">
-              0
-            </div>
-
-            <div class="stat-label">
-              不正解
-            </div>
-          </div>
-
-          <div class="stat">
-            <div id="accuracy" class="stat-value">
-              0%
-            </div>
-
-            <div class="stat-label">
-              正答率
-            </div>
-          </div>
-
-        </div>
-
-        <div class="result-buttons">
-
-          <button
-            id="retryButton"
-            class="start-button"
-            type="button"
-          >
-            もう一度挑戦
-          </button>
-
-          <button
-            id="homeButton"
-            class="secondary-button"
-            type="button"
-          >
-            設定画面に戻る
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="review-title">
-          ❌ 間違えた問題
-        </div>
-
-        <div id="reviewContainer"></div>
-
-      </div>
-
-    </section>
-
-    <div class="footer">
-      定期テスト対策サイト
     </div>
 
-  </main>
+    <div class="card">
+      <div class="section-title">② 教科を選択</div>
 
+      <div class="subject-grid">
+        <button class="choice-button" data-subject="国語">国語</button>
+        <button class="choice-button" data-subject="社会">社会</button>
+        <button class="choice-button" data-subject="数学">数学</button>
+        <button class="choice-button" data-subject="理科">理科</button>
+        <button class="choice-button" data-subject="英語">英語</button>
+      </div>
+    </div>
 
-  <!--
-    ==========================================
-    問題データ
-    questions.js から読み込みます
-    ==========================================
-  -->
+    <div class="card">
+      <div class="section-title">③ 単元を選択</div>
 
-  <script src="questions.js"></script>
+      <div id="unitList" class="unit-list">
+        <div class="empty-message">
+          先に学年と教科を選択してください。
+        </div>
+      </div>
 
-  <script>
+      <div class="info">
+        複数の単元を選択できます。
+      </div>
+    </div>
 
-    /* ========================================
-       状態
-    ======================================== */
+    <div class="card">
 
-    let selectedGrade = null;
-    let selectedSubject = null;
-    let selectedUnits = [];
+      <div class="section-title">④ 問題数・難易度</div>
 
-    let quizQuestions = [];
-    let currentQuestionIndex = 0;
-    let correctAnswers = 0;
-    let wrongQuestions = [];
-    let answered = false;
+      <div class="controls">
 
+        <div>
+          <label for="questionCount">問題数</label>
 
-    /* ========================================
-       HTML要素
-    ======================================== */
+          <select id="questionCount">
+            <option value="5">5問</option>
+            <option value="10">10問</option>
+            <option value="20">20問</option>
+            <option value="30" selected>30問</option>
+            <option value="50">50問</option>
+          </select>
+        </div>
 
-    const setupScreen =
-      document.getElementById("setupScreen");
+        <div>
+          <label for="difficulty">難易度</label>
 
-    const quizScreen =
-      document.getElementById("quizScreen");
+          <select id="difficulty">
+            <option value="すべて">すべて</option>
+            <option value="基礎">基礎</option>
+            <option value="標準">標準</option>
+            <option value="応用">応用</option>
+          </select>
+        </div>
 
-    const resultScreen =
-      document.getElementById("resultScreen");
+      </div>
 
-    const unitContainer =
-      document.getElementById("unitContainer");
+      <button id="startButton" class="start-button">
+        ▶ 問題を始める
+      </button>
 
-    const startButton =
-      document.getElementById("startButton");
+    </div>
 
-    const questionCount =
-      document.getElementById("questionCount");
+  </section>
 
-    const difficulty =
-      document.getElementById("difficulty");
 
-    const progressText =
-      document.getElementById("progressText");
+  <!-- 問題画面 -->
+  <section id="quizScreen" class="hidden">
 
-    const progressValue =
-      document.getElementById("progressValue");
+    <div class="card">
 
-    const questionMeta =
-      document.getElementById("questionMeta");
+      <div class="quiz-header">
+        <span id="quizProgressText">1 / 30</span>
+        <span id="quizScoreText">正解 0問</span>
+      </div>
 
-    const questionText =
-      document.getElementById("questionText");
+      <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
 
-    const choices =
-      document.getElementById("choices");
+      <div id="questionNumber" class="question-number">
+        第1問
+      </div>
 
-    const answerBox =
-      document.getElementById("answerBox");
+      <div id="questionText" class="question-text">
+        問題
+      </div>
 
-    const answerTitle =
-      document.getElementById("answerTitle");
+      <div id="answerGrid" class="answer-grid"></div>
 
-    const explanation =
-      document.getElementById("explanation");
+      <div id="explanation" class="explanation hidden"></div>
 
-    const nextButton =
-      document.getElementById("nextButton");
+      <button id="nextButton" class="next-button hidden">
+        次の問題へ →
+      </button>
 
-    const scoreNumber =
-      document.getElementById("scoreNumber");
+    </div>
 
-    const correctCount =
-      document.getElementById("correctCount");
+  </section>
 
-    const wrongCount =
-      document.getElementById("wrongCount");
 
-    const accuracy =
-      document.getElementById("accuracy");
+  <!-- 結果画面 -->
+  <section id="resultScreen" class="hidden">
 
-    const reviewContainer =
-      document.getElementById("reviewContainer");
+    <div class="card">
 
+      <div class="section-title">
+        🎉 テスト終了！
+      </div>
 
-    /* ========================================
-       共通関数
-    ======================================== */
+      <div id="resultScore" class="result-score">
+        0 / 0
+      </div>
 
-    function shuffle(array) {
+      <div id="resultAccuracy" class="result-message">
+        正答率 0%
+      </div>
 
-      const copied = [...array];
+      <div id="resultMessage" class="result-message">
+      </div>
 
-      for (
-        let i = copied.length - 1;
-        i > 0;
-        i--
-      ) {
+      <button id="retryButton" class="next-button">
+        🔄 もう一度挑戦する
+      </button>
 
-        const j =
-          Math.floor(Math.random() * (i + 1));
+      <button id="homeButton" class="home-button">
+        🏠 設定画面に戻る
+      </button>
 
-        [
-          copied[i],
-          copied[j]
-        ] =
-        [
-          copied[j],
-          copied[i]
-        ];
-      }
+    </div>
 
-      return copied;
-    }
 
+    <div class="card">
 
-    function escapeHTML(value) {
+      <div class="section-title">
+        ❌ 間違えた問題
+      </div>
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+      <div id="wrongQuestions">
+      </div>
 
+    </div>
 
-    /* ========================================
-       学年選択
-    ======================================== */
+  </section>
 
-    document
-      .querySelectorAll("[data-grade]")
-      .forEach(button => {
+</main>
 
-        button.addEventListener("click", () => {
 
-          document
-            .querySelectorAll("[data-grade]")
-            .forEach(b =>
-              b.classList.remove("selected")
-            );
+<!--
+  重要：
+  questions.jsを先に読み込みます。
+  questions.jsの中で questionData を作ってください。
+-->
+<script src="questions.js"></script>
 
-          button.classList.add("selected");
+<script>
 
-          selectedGrade =
-            Number(button.dataset.grade);
+  // =========================
+  // 基本設定
+  // =========================
 
-          selectedUnits = [];
+  let selectedGrade = null;
+  let selectedSubject = null;
+  let selectedUnits = [];
 
-          updateUnitList();
+  let quizQuestions = [];
+  let currentQuestionIndex = 0;
+  let correctCount = 0;
+  let wrongQuestions = [];
 
-        });
 
-      });
+  // =========================
+  // HTML要素
+  // =========================
 
+  const setupScreen = document.getElementById("setupScreen");
+  const quizScreen = document.getElementById("quizScreen");
+  const resultScreen = document.getElementById("resultScreen");
 
-    /* ========================================
-       教科選択
-    ======================================== */
+  const unitList = document.getElementById("unitList");
 
-    document
-      .querySelectorAll("[data-subject]")
-      .forEach(button => {
+  const questionCountSelect =
+    document.getElementById("questionCount");
 
-        button.addEventListener("click", () => {
+  const difficultySelect =
+    document.getElementById("difficulty");
 
-          document
-            .querySelectorAll("[data-subject]")
-            .forEach(b =>
-              b.classList.remove("selected")
-            );
+  const startButton =
+    document.getElementById("startButton");
 
-          button.classList.add("selected");
+  const questionNumber =
+    document.getElementById("questionNumber");
 
-          selectedSubject =
-            button.dataset.subject;
+  const questionText =
+    document.getElementById("questionText");
 
-          selectedUnits = [];
+  const answerGrid =
+    document.getElementById("answerGrid");
 
-          updateUnitList();
+  const explanation =
+    document.getElementById("explanation");
 
-        });
+  const nextButton =
+    document.getElementById("nextButton");
 
-      });
+  const quizProgressText =
+    document.getElementById("quizProgressText");
 
+  const quizScoreText =
+    document.getElementById("quizScoreText");
 
-    /* ========================================
-       単元一覧
-    ======================================== */
+  const progressBar =
+    document.getElementById("progressBar");
 
-    function getAvailableUnits() {
+  const resultScore =
+    document.getElementById("resultScore");
 
-      if (
-        !selectedGrade ||
-        !selectedSubject
-      ) {
-        return [];
-      }
+  const resultAccuracy =
+    document.getElementById("resultAccuracy");
 
-      const units = questionData
-        .filter(q =>
-          Number(q.grade) === Number(selectedGrade) &&
-          q.subject === selectedSubject
-        )
-        .map(q => q.unit);
+  const resultMessage =
+    document.getElementById("resultMessage");
 
-      return [...new Set(units)];
-    }
+  const wrongQuestions =
+    document.getElementById("wrongQuestions");
 
+  const retryButton =
+    document.getElementById("retryButton");
 
-    function getUnitQuestionCount(unit) {
+  const homeButton =
+    document.getElementById("homeButton");
 
-      return questionData.filter(q =>
-        Number(q.grade) === Number(selectedGrade) &&
-        q.subject === selectedSubject &&
-        q.unit === unit
-      ).length;
 
-    }
+  // =========================
+  // 問題データ確認
+  // =========================
 
+  if (!Array.isArray(window.questionData)) {
 
-    function updateUnitList() {
+    alert(
+      "questions.jsから問題データを読み込めませんでした。\n\n" +
+      "questions.jsに const questionData = [...] があるか確認してください。"
+    );
 
-      unitContainer.innerHTML = "";
+  }
 
-      const units =
-        getAvailableUnits();
 
-      if (units.length === 0) {
+  // =========================
+  // シャッフル
+  // =========================
 
-        unitContainer.innerHTML = `
-          <div class="empty">
-            この学年・教科の問題データがありません。
-          </div>
-        `;
+  function shuffle(array) {
 
-        updateStartButton();
+    const result = [...array];
 
-        return;
-      }
+    for (let i = result.length - 1; i > 0; i--) {
 
+      const j =
+        Math.floor(Math.random() * (i + 1));
 
-      units.forEach(unit => {
-
-        const button =
-          document.createElement("button");
-
-        button.type = "button";
-
-        button.className =
-          "unit-button";
-
-        if (
-          selectedUnits.includes(unit)
-        ) {
-          button.classList.add("selected");
-        }
-
-        button.innerHTML = `
-          <span class="unit-name">
-            ${escapeHTML(unit)}
-          </span>
-
-          <span class="unit-count">
-            ${getUnitQuestionCount(unit)}問
-          </span>
-        `;
-
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            if (
-              selectedUnits.includes(unit)
-            ) {
-
-              selectedUnits =
-                selectedUnits.filter(
-                  item => item !== unit
-                );
-
-              button.classList.remove(
-                "selected"
-              );
-
-            } else {
-
-              selectedUnits.push(unit);
-
-              button.classList.add(
-                "selected"
-              );
-
-            }
-
-            updateStartButton();
-
-          }
-        );
-
-
-        unitContainer.appendChild(button);
-
-      });
-
-      updateStartButton();
+      [result[i], result[j]] =
+        [result[j], result[i]];
 
     }
 
-
-    /* ========================================
-       全単元選択
-    ======================================== */
-
-    document
-      .getElementById("selectAllUnits")
-      .addEventListener("click", () => {
-
-        selectedUnits =
-          getAvailableUnits();
-
-        updateUnitList();
-
-      });
+    return result;
+  }
 
 
-    /* ========================================
-       単元選択解除
-    ======================================== */
+  // =========================
+  // 学年選択
+  // =========================
 
-    document
-      .getElementById("clearUnits")
-      .addEventListener("click", () => {
+  document
+    .querySelectorAll("[data-grade]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        document
+          .querySelectorAll("[data-grade]")
+          .forEach(b =>
+            b.classList.remove("selected")
+          );
+
+        button.classList.add("selected");
+
+        selectedGrade =
+          Number(button.dataset.grade);
 
         selectedUnits = [];
 
@@ -1199,659 +663,637 @@
 
       });
 
+    });
 
-    /* ========================================
-       開始ボタン状態
-    ======================================== */
 
-    function updateStartButton() {
+  // =========================
+  // 教科選択
+  // =========================
 
-      const canStart =
-        selectedGrade &&
-        selectedSubject &&
-        selectedUnits.length > 0 &&
-        questionData.length > 0;
+  document
+    .querySelectorAll("[data-subject]")
+    .forEach(button => {
 
-      startButton.disabled =
-        !canStart;
-
-    }
-
-
-    /* ========================================
-       テスト開始
-    ======================================== */
-
-    startButton.addEventListener(
-      "click",
-      startQuiz
-    );
-
-
-    function startQuiz() {
-
-      let pool =
-        questionData.filter(q =>
-
-          Number(q.grade) ===
-            Number(selectedGrade) &&
-
-          q.subject ===
-            selectedSubject &&
-
-          selectedUnits.includes(q.unit)
-
-        );
-
-
-      const selectedDifficulty =
-        difficulty.value;
-
-
-      if (
-        selectedDifficulty !== "すべて"
-      ) {
-
-        pool =
-          pool.filter(q =>
-            q.difficulty ===
-            selectedDifficulty
-          );
-
-      }
-
-
-      if (pool.length === 0) {
-
-        alert(
-          "選択した条件に合う問題がありません。\n難易度を「すべて」にして試してください。"
-        );
-
-        return;
-      }
-
-
-      const requestedCount =
-        Number(questionCount.value);
-
-
-      /*
-       * 問題数より問題データが少ない場合は、
-       * 同じ問題を重複させて指定数まで出題。
-       */
-
-      quizQuestions = [];
-
-      const shuffledPool =
-        shuffle(pool);
-
-
-      for (
-        let i = 0;
-        i < requestedCount;
-        i++
-      ) {
-
-        quizQuestions.push(
-          shuffledPool[
-            i % shuffledPool.length
-          ]
-        );
-
-      }
-
-
-      quizQuestions =
-        shuffle(quizQuestions);
-
-
-      currentQuestionIndex = 0;
-      correctAnswers = 0;
-      wrongQuestions = [];
-      answered = false;
-
-
-      setupScreen.style.display =
-        "none";
-
-      resultScreen.style.display =
-        "none";
-
-      quizScreen.style.display =
-        "block";
-
-
-      showQuestion();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-
-    /* ========================================
-       問題表示
-    ======================================== */
-
-    function showQuestion() {
-
-      answered = false;
-
-      const question =
-        quizQuestions[
-          currentQuestionIndex
-        ];
-
-
-      const current =
-        currentQuestionIndex + 1;
-
-      const total =
-        quizQuestions.length;
-
-
-      progressText.textContent =
-        `${current} / ${total}`;
-
-      progressValue.style.width =
-        `${(current / total) * 100}%`;
-
-
-      questionMeta.innerHTML = `
-        <span class="tag">
-          中学${question.grade}年
-        </span>
-
-        <span class="tag">
-          ${escapeHTML(question.subject)}
-        </span>
-
-        <span class="tag">
-          ${escapeHTML(question.unit)}
-        </span>
-
-        <span class="tag ${
-          question.difficulty === "基礎"
-            ? "difficulty-basic"
-            : question.difficulty === "標準"
-              ? "difficulty-standard"
-              : "difficulty-advanced"
-        }">
-          ${escapeHTML(question.difficulty)}
-        </span>
-      `;
-
-
-      questionText.textContent =
-        question.question;
-
-
-      choices.innerHTML = "";
-
-
-      /*
-       * 選択肢と正解番号の対応を維持したまま
-       * 選択肢をシャッフル。
-       */
-
-      const choiceObjects =
-        question.choices.map(
-          (choice, index) => ({
-            text: choice,
-            originalIndex: index
-          })
-        );
-
-
-      const shuffledChoices =
-        shuffle(choiceObjects);
-
-
-      shuffledChoices.forEach(
-        choiceObject => {
-
-          const button =
-            document.createElement("button");
-
-          button.type = "button";
-
-          button.className =
-            "choice";
-
-          button.textContent =
-            choiceObject.text;
-
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              answerQuestion(
-                choiceObject.originalIndex,
-                button
-              );
-
-            }
-          );
-
-
-          choices.appendChild(button);
-
-        }
-      );
-
-
-      answerBox.style.display =
-        "none";
-
-      answerBox.className =
-        "answer-box";
-
-      nextButton.style.display =
-        "none";
-
-    }
-
-
-    /* ========================================
-       回答
-    ======================================== */
-
-    function answerQuestion(
-      selectedIndex,
-      selectedButton
-    ) {
-
-      if (answered) {
-        return;
-      }
-
-      answered = true;
-
-
-      const question =
-        quizQuestions[
-          currentQuestionIndex
-        ];
-
-
-      const isCorrect =
-        selectedIndex ===
-        Number(question.answer);
-
-
-      document
-        .querySelectorAll(".choice")
-        .forEach(button => {
-
-          button.disabled = true;
-
-        });
-
-
-      if (isCorrect) {
-
-        correctAnswers++;
-
-        selectedButton.classList.add(
-          "correct"
-        );
-
-        answerBox.classList.add(
-          "correct"
-        );
-
-        answerTitle.textContent =
-          "⭕ 正解！";
-
-      } else {
-
-        selectedButton.classList.add(
-          "incorrect"
-        );
-
+      button.addEventListener("click", () => {
 
         document
-          .querySelectorAll(".choice")
-          .forEach(button => {
+          .querySelectorAll("[data-subject]")
+          .forEach(b =>
+            b.classList.remove("selected")
+          );
 
-            const text =
-              button.textContent;
+        button.classList.add("selected");
 
-            if (
-              text ===
-              question.choices[
-                Number(question.answer)
-              ]
-            ) {
+        selectedSubject =
+          button.dataset.subject;
 
-              button.classList.add(
-                "correct"
-              );
+        selectedUnits = [];
 
-            }
+        updateUnitList();
 
-          });
+      });
+
+    });
 
 
-        answerBox.classList.add(
-          "incorrect"
-        );
+  // =========================
+  // 単元一覧更新
+  // =========================
 
-        answerTitle.textContent =
-          "❌ 不正解";
+  function updateUnitList() {
 
+    if (
+      selectedGrade === null ||
+      selectedSubject === null
+    ) {
 
-        wrongQuestions.push({
-          ...question
-        });
-
-      }
-
-
-      const correctText =
-        question.choices[
-          Number(question.answer)
-        ];
-
-
-      explanation.innerHTML = `
-        <strong>正解：</strong>
-        ${escapeHTML(correctText)}
-        <br><br>
-        ${escapeHTML(
-          question.explanation ||
-          "この問題の解説はありません。"
-        )}
+      unitList.innerHTML = `
+        <div class="empty-message">
+          先に学年と教科を選択してください。
+        </div>
       `;
 
-
-      answerBox.style.display =
-        "block";
-
-
-      if (
-        currentQuestionIndex <
-        quizQuestions.length - 1
-      ) {
-
-        nextButton.textContent =
-          "次の問題へ";
-
-      } else {
-
-        nextButton.textContent =
-          "結果を見る";
-
-      }
-
-
-      nextButton.style.display =
-        "block";
-
+      return;
     }
 
 
-    /* ========================================
-       次の問題
-    ======================================== */
+    const units = [
+      ...new Set(
 
-    nextButton.addEventListener(
-      "click",
-      () => {
+        questionData
 
-        currentQuestionIndex++;
+          .filter(q =>
+            Number(q.grade) === selectedGrade &&
+            q.subject === selectedSubject
+          )
 
-        if (
-          currentQuestionIndex >=
-          quizQuestions.length
-        ) {
+          .map(q => q.unit)
 
-          showResult();
+          .filter(Boolean)
+
+      )
+    ];
+
+
+    if (units.length === 0) {
+
+      unitList.innerHTML = `
+        <div class="empty-message">
+          この学年・教科にはまだ問題がありません。
+        </div>
+      `;
+
+      return;
+    }
+
+
+    unitList.innerHTML = "";
+
+
+    units.forEach(unit => {
+
+      const button =
+        document.createElement("button");
+
+      button.className = "unit-button";
+
+      button.textContent = unit;
+
+
+      button.addEventListener("click", () => {
+
+        if (selectedUnits.includes(unit)) {
+
+          selectedUnits =
+            selectedUnits.filter(
+              u => u !== unit
+            );
+
+          button.classList.remove("selected");
 
         } else {
 
-          showQuestion();
+          selectedUnits.push(unit);
 
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
+          button.classList.add("selected");
 
         }
 
+      });
+
+
+      unitList.appendChild(button);
+
+    });
+
+  }
+
+
+  // =========================
+  // 問題開始
+  // =========================
+
+  startButton.addEventListener("click", startQuiz);
+
+
+  function startQuiz() {
+
+    if (selectedGrade === null) {
+
+      alert("学年を選択してください。");
+
+      return;
+    }
+
+
+    if (!selectedSubject) {
+
+      alert("教科を選択してください。");
+
+      return;
+    }
+
+
+    if (selectedUnits.length === 0) {
+
+      alert("少なくとも1つの単元を選択してください。");
+
+      return;
+    }
+
+
+    const difficulty =
+      difficultySelect.value;
+
+
+    let pool = questionData.filter(q => {
+
+      const gradeOK =
+        Number(q.grade) === selectedGrade;
+
+      const subjectOK =
+        q.subject === selectedSubject;
+
+      const unitOK =
+        selectedUnits.includes(q.unit);
+
+      const difficultyOK =
+        difficulty === "すべて" ||
+        q.difficulty === difficulty;
+
+      return (
+        gradeOK &&
+        subjectOK &&
+        unitOK &&
+        difficultyOK
+      );
+
+    });
+
+
+    if (pool.length === 0) {
+
+      alert(
+        "条件に合う問題がありません。\n" +
+        "単元または難易度を変更してください。"
+      );
+
+      return;
+    }
+
+
+    const requestedCount =
+      Number(questionCountSelect.value);
+
+
+    /*
+      問題数がデータ数より多い場合でも、
+      ある程度繰り返して出題できるようにします。
+    */
+
+    pool = shuffle(pool);
+
+    quizQuestions = [];
+
+
+    for (
+      let i = 0;
+      i < requestedCount;
+      i++
+    ) {
+
+      quizQuestions.push(
+        pool[i % pool.length]
+      );
+
+    }
+
+
+    quizQuestions =
+      quizQuestions.map(q => {
+
+        return {
+          ...q,
+          shuffledChoices:
+            shuffle(
+              q.choices.map(
+                (text, index) => ({
+                  text,
+                  originalIndex: index
+                })
+              )
+            )
+        };
+
+      });
+
+
+    currentQuestionIndex = 0;
+    correctCount = 0;
+    wrongQuestions = [];
+
+
+    setupScreen.classList.add("hidden");
+    resultScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+
+
+    showQuestion();
+
+  }
+
+
+  // =========================
+  // 問題表示
+  // =========================
+
+  function showQuestion() {
+
+    const q =
+      quizQuestions[currentQuestionIndex];
+
+
+    const total =
+      quizQuestions.length;
+
+
+    questionNumber.textContent =
+      `第${currentQuestionIndex + 1}問`;
+
+
+    questionText.textContent =
+      q.question;
+
+
+    quizProgressText.textContent =
+      `${currentQuestionIndex + 1} / ${total}`;
+
+
+    quizScoreText.textContent =
+      `正解 ${correctCount}問`;
+
+
+    progressBar.style.width =
+      `${((currentQuestionIndex) / total) * 100}%`;
+
+
+    answerGrid.innerHTML = "";
+
+    explanation.innerHTML = "";
+
+    explanation.classList.add("hidden");
+
+    nextButton.classList.add("hidden");
+
+
+    q.shuffledChoices.forEach(choice => {
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "answer-button";
+
+      button.textContent =
+        choice.text;
+
+
+      button.addEventListener(
+        "click",
+        () => answerQuestion(
+          choice.originalIndex,
+          button
+        )
+      );
+
+
+      answerGrid.appendChild(button);
+
+    });
+
+  }
+
+
+  // =========================
+  // 回答
+  // =========================
+
+  function answerQuestion(
+    selectedAnswer,
+    clickedButton
+  ) {
+
+    const q =
+      quizQuestions[currentQuestionIndex];
+
+
+    const buttons =
+      document.querySelectorAll(
+        ".answer-button"
+      );
+
+
+    buttons.forEach(button => {
+      button.disabled = true;
+    });
+
+
+    const correctAnswer =
+      Number(q.answer);
+
+
+    buttons.forEach(button => {
+
+      const originalIndex =
+        q.shuffledChoices.find(
+          c => c.text === button.textContent
+        )?.originalIndex;
+
+
+      if (
+        originalIndex === correctAnswer
+      ) {
+
+        button.classList.add("correct");
+
       }
-    );
+
+    });
 
 
-    /* ========================================
-       結果表示
-    ======================================== */
+    if (
+      selectedAnswer === correctAnswer
+    ) {
 
-    function showResult() {
+      clickedButton.classList.add("correct");
 
-      quizScreen.style.display =
-        "none";
+      correctCount++;
 
-      resultScreen.style.display =
-        "block";
+    } else {
 
-
-      const total =
-        quizQuestions.length;
-
-      const wrong =
-        total - correctAnswers;
-
-      const rate =
-        total === 0
-          ? 0
-          : Math.round(
-              (correctAnswers / total) * 100
-            );
+      clickedButton.classList.add("wrong");
 
 
-      const score =
-        Math.round(
-          (correctAnswers / total) * 100
-        );
-
-
-      scoreNumber.textContent =
-        `${score}点`;
-
-      correctCount.textContent =
-        correctAnswers;
-
-      wrongCount.textContent =
-        wrong;
-
-      accuracy.textContent =
-        `${rate}%`;
-
-
-      showReview();
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+      wrongQuestions.push({
+        question: q.question,
+        yourAnswer:
+          q.choices[selectedAnswer],
+        correctAnswer:
+          q.choices[correctAnswer],
+        explanation:
+          q.explanation || ""
       });
 
     }
 
 
-    /* ========================================
-       間違い復習
-    ======================================== */
-
-    function showReview() {
-
-      reviewContainer.innerHTML = "";
+    quizScoreText.textContent =
+      `正解 ${correctCount}問`;
 
 
-      if (wrongQuestions.length === 0) {
+    explanation.innerHTML =
+      `<strong>解説</strong><br>${escapeHTML(
+        q.explanation || "解説はありません。"
+      )}`;
 
-        reviewContainer.innerHTML = `
-          <div class="no-wrong">
-            🎉 全問正解です！<br>
-            すごいです！
-          </div>
-        `;
 
-        return;
+    explanation.classList.remove("hidden");
+
+
+    nextButton.classList.remove("hidden");
+
+
+    progressBar.style.width =
+      `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
+
+  }
+
+
+  // =========================
+  // 次の問題
+  // =========================
+
+  nextButton.addEventListener(
+    "click",
+    () => {
+
+      currentQuestionIndex++;
+
+
+      if (
+        currentQuestionIndex >=
+        quizQuestions.length
+      ) {
+
+        showResult();
+
+      } else {
+
+        showQuestion();
+
       }
 
-
-      wrongQuestions.forEach(
-        (question, index) => {
-
-          const item =
-            document.createElement("div");
-
-          item.className =
-            "review-item";
-
-
-          const correctText =
-            question.choices[
-              Number(question.answer)
-            ];
-
-
-          item.innerHTML = `
-            <div class="review-question">
-              ${index + 1}. 
-              ${escapeHTML(question.question)}
-            </div>
-
-            <div class="review-answer">
-              <strong>正解：</strong>
-              ${escapeHTML(correctText)}
-              <br><br>
-
-              <strong>解説：</strong><br>
-              ${escapeHTML(
-                question.explanation ||
-                "解説はありません。"
-              )}
-            </div>
-          `;
-
-
-          reviewContainer.appendChild(item);
-
-        }
-      );
-
     }
+  );
 
 
-    /* ========================================
-       もう一度挑戦
-    ======================================== */
+  // =========================
+  // 結果表示
+  // =========================
 
-    document
-      .getElementById("retryButton")
-      .addEventListener(
-        "click",
-        () => {
+  function showResult() {
 
-          startQuiz();
-
-        }
-      );
+    quizScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
 
 
-    /* ========================================
-       ホームへ
-    ======================================== */
-
-    document
-      .getElementById("homeButton")
-      .addEventListener(
-        "click",
-        () => {
-
-          resultScreen.style.display =
-            "none";
-
-          quizScreen.style.display =
-            "none";
-
-          setupScreen.style.display =
-            "block";
-
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-
-        }
-      );
+    const total =
+      quizQuestions.length;
 
 
-    /* ========================================
-       クイズ終了
-    ======================================== */
-
-    document
-      .getElementById("quitButton")
-      .addEventListener(
-        "click",
-        () => {
-
-          const confirmed =
-            confirm(
-              "テストを終了して設定画面に戻りますか？"
-            );
-
-          if (!confirmed) {
-            return;
-          }
+    const accuracy =
+      total === 0
+        ? 0
+        : Math.round(
+            (correctCount / total) * 100
+          );
 
 
-          quizScreen.style.display =
-            "none";
-
-          resultScreen.style.display =
-            "none";
-
-          setupScreen.style.display =
-            "block";
+    resultScore.textContent =
+      `${correctCount} / ${total}`;
 
 
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-
-        }
-      );
+    resultAccuracy.textContent =
+      `正答率 ${accuracy}%`;
 
 
-    /* ========================================
-       初期状態
-    ======================================== */
+    if (accuracy >= 90) {
 
-    if (
-      typeof questionData ===
-      "undefined"
-    ) {
+      resultMessage.textContent =
+        "🌟 とてもよくできました！";
 
-      alert(
-        "問題データ（questions.js）が読み込めませんでした。"
-      );
+    } else if (accuracy >= 70) {
+
+      resultMessage.textContent =
+        "👍 かなりできています！";
+
+    } else if (accuracy >= 50) {
+
+      resultMessage.textContent =
+        "📖 もう一度復習してみましょう！";
 
     } else {
 
-      updateStartButton();
+      resultMessage.textContent =
+        "💪 間違えた問題を中心に復習しましょう！";
 
     }
 
-  </script>
+
+    showWrongQuestions();
+
+  }
+
+
+  // =========================
+  // 間違えた問題
+  // =========================
+
+  function showWrongQuestions() {
+
+    wrongQuestions.innerHTML = "";
+
+
+    if (wrongQuestions.length === 0) {
+
+      wrongQuestions.innerHTML = `
+        <div class="info">
+          🎉 全問正解です！
+        </div>
+      `;
+
+      return;
+    }
+
+
+    wrongQuestions.forEach(
+      (item, index) => {
+
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "review-item";
+
+
+        div.innerHTML = `
+
+          <div class="review-question">
+            ${index + 1}. ${escapeHTML(
+              item.question
+            )}
+          </div>
+
+          <div class="review-answer">
+            あなたの答え：
+            ${escapeHTML(
+              item.yourAnswer
+            )}
+          </div>
+
+          <div class="review-correct">
+            正解：
+            ${escapeHTML(
+              item.correctAnswer
+            )}
+          </div>
+
+          <div class="explanation">
+            ${escapeHTML(
+              item.explanation
+            )}
+          </div>
+
+        `;
+
+
+        wrongQuestions.appendChild(div);
+
+      }
+    );
+
+  }
+
+
+  // =========================
+  // もう一度
+  // =========================
+
+  retryButton.addEventListener(
+    "click",
+    () => {
+
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+
+      startQuiz();
+
+    }
+  );
+
+
+  // =========================
+  // ホーム
+  // =========================
+
+  homeButton.addEventListener(
+    "click",
+    () => {
+
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.add("hidden");
+      setupScreen.classList.remove("hidden");
+
+    }
+  );
+
+
+  // =========================
+  // HTMLエスケープ
+  // =========================
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+</script>
 
 </body>
 </html>
